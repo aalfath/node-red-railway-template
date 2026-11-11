@@ -10,7 +10,8 @@
  * The editor never starts without a password, so it is never open to the internet.
  * Full option list: https://nodered.org/docs/user-guide/runtime/settings-file
  */
-const bcrypt = require("bcryptjs");
+// bcryptjs ships with Node-RED; resolve it from the image even when this file lives on the volume.
+const bcrypt = require(require.resolve("bcryptjs", { paths: [__dirname, "/usr/src/node-red"] }));
 
 const adminUser = (process.env.NODE_RED_ADMIN_USER || "admin").trim();
 const adminPassword = process.env.NODE_RED_ADMIN_PASSWORD || "";
